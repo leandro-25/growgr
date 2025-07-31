@@ -1,119 +1,77 @@
 <template>
-  <ion-page class="login-page bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-    <ion-content class="h-screen overflow-hidden">
-      <div class="h-full flex items-center justify-center">
-        <div class="w-full max-w-md px-6">
-          <div class="logo-wrapper flex justify-center mb-6 -mt-20">
-            <img 
-              src="@/assets/imagem/logo.png" 
-              alt="DeepSeekk Think Logo" 
-              class="h-40 w-auto"
-            />
-          </div>
-          <!-- Continue com o resto do template mantendo as classes Tailwind originais -->
-          <h2 class="text-xl sm:text-2xl font-bold text-gray-100 mb-6 text-center">Entre na sua conta</h2>
-
-          <form @submit.prevent="handleLogin" @keyup.enter="handleLogin" class="login-form">
-            <!-- Email Input -->
-            <div class="form-group">
-              <label>Endereço de email</label>
-              <div class="input-wrapper">
-                <ion-input
-                  v-model="email"
-                  type="email"
-                  placeholder="Insira seu e-mail..."
-                  @blur="validateEmail"
-                  autocomplete="email"
-                  inputmode="email"
-                  required
-                ></ion-input>
-              </div>
-              <ion-text v-if="emailError" class="error-message">{{ emailError }}</ion-text>
+  <ion-page class="login-page">
+    <ion-content class="ion-padding">
+      <ion-grid>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size="12" size-md="8" size-lg="6" size-xl="4">
+            <div class="ion-text-center ion-margin-bottom">
+              <img src="@/assets/imagem/logo.png" alt="Logo" class="logo" />
+              <h1>Bem-vindo de volta!</h1>
+              <p>Faça login para continuar</p>
             </div>
 
-            <!-- Password Input -->
-            <div class="form-group">
-              <label>Senha</label>
-              <div class="input-wrapper">
-                <ion-input
-                  v-model="password"
-                  :type="showPassword ? 'text' : 'password'"
-                  placeholder="Insira sua senha..."
-                  @blur="validatePassword"
-                  autocomplete="current-password"
-                  required
-                ></ion-input>
-                <div 
-                  @click="showPassword = !showPassword"
-                  class="toggle-password"
-                >
-                  <ion-icon 
-                    :icon="showPassword ? eyeOffOutline : eyeOutline" 
-                    class="w-5 h-5"
-                  ></ion-icon>
-                </div>
-              </div>
-              <ion-text v-if="passwordError" class="error-message">{{ passwordError }}</ion-text>
+            <ion-list>
+              <ion-item>
+                <ion-label position="floating">Email</ion-label>
+                <ion-input v-model="email" type="email" @ionBlur="validateEmail" required></ion-input>
+              </ion-item>
+              <ion-text color="danger" v-if="emailError">{{ emailError }}</ion-text>
+
+              <ion-item>
+                <ion-label position="floating">Senha</ion-label>
+                <ion-input v-model="password" :type="showPassword ? 'text' : 'password'" @ionBlur="validatePassword" required></ion-input>
+                <ion-icon slot="end" :icon="showPassword ? eyeOffOutline : eyeOutline" @click="showPassword = !showPassword"></ion-icon>
+              </ion-item>
+              <ion-text color="danger" v-if="passwordError">{{ passwordError }}</ion-text>
+            </ion-list>
+
+            <ion-row class="ion-align-items-center ion-margin-top">
+              <ion-col size="6">
+                <ion-item lines="none">
+                  <ion-label>Lembrar-me</ion-label>
+                  <ion-checkbox v-model="rememberMe" slot="start"></ion-checkbox>
+                </ion-item>
+              </ion-col>
+              <ion-col size="6" class="ion-text-end">
+                <router-link to="/forgot-password">Esqueceu a senha?</router-link>
+              </ion-col>
+            </ion-row>
+
+            <ion-button expand="block" @click="handleLogin" :disabled="loading || !isValidForm" class="ion-margin-top">
+              <ion-spinner v-if="loading" name="crescent"></ion-spinner>
+              <span v-else>Entrar</span>
+            </ion-button>
+
+            <div class="ion-text-center ion-margin-top">
+              <p>Não tem uma conta? <router-link to="/signup">Inscrever-se</router-link></p>
             </div>
-
-            <!-- Remember Me -->
-            <div class="remember-section">
-              <div class="remember-checkbox">
-                <ion-checkbox v-model="rememberMe"></ion-checkbox>
-                <span>Lembrar</span>
-              </div>
-
-              <router-link to="/forgot-password" class="forgot-link">
-                Esqueceu sua senha?
-              </router-link>
-            </div>
-
-            <!-- Login Button -->
-            <button
-              type="submit"
-              :disabled="loading || !isValidForm"
-              class="submit-button"
-            >
-              <ion-spinner 
-                v-if="loading"
-                name="crescent"
-              ></ion-spinner>
-              <span>{{ loading ? 'Entrando...' : 'Entrar' }}</span>
-            </button>
-
-            <!-- Sign Up Link -->
-            <div class="signup-container">
-              <p>
-                Não tem uma conta? 
-                <router-link to="/signup" class="signup-link">
-                  Inscrever-se
-                </router-link>
-              </p>
-            </div>
-          </form>
-        </div>
-      </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-content>
   </ion-page>
 </template>
 
-<style lang="scss">
-@import '@/theme/login.scss';
+<style scoped>
+.logo {
+  max-width: 150px;
+  margin-bottom: 1rem;
+}
+ion-item {
+  --background: transparent;
+}
 </style>
 
-
-
 <script setup lang="ts">
-import { ref, computed, onMounted, reactive, nextTick } from 'vue';
-import { useRouter } from 'vue-router';
-import { api } from '@/api';
+import { ref, computed, onMounted } from 'vue';
+import { useAuthStore } from '@/stores';
 import {
-  IonPage, IonHeader, IonToolbar, IonTitle, IonContent,
-  IonItem, IonLabel, IonInput, IonButton, IonText,
-  IonSpinner, IonToast, IonCheckbox, IonIcon
+  IonPage, IonContent, IonGrid, IonRow, IonCol, IonList, IonItem, IonLabel, IonInput, IonButton,
+  IonText, IonSpinner, IonCheckbox, IonIcon, toastController
 } from '@ionic/vue';
 import { eyeOutline, eyeOffOutline } from 'ionicons/icons';
 
+const authStore = useAuthStore();
 const email = ref('');
 const password = ref('');
 const loading = ref(false);
@@ -121,14 +79,7 @@ const emailError = ref('');
 const passwordError = ref('');
 const showPassword = ref(false);
 const rememberMe = ref(false);
-const toast = reactive({
-  show: false,
-  message: '',
-  color: 'primary'
-});
-const router = useRouter();
 
-// Load saved email if remember me was used
 onMounted(() => {
   const savedEmail = localStorage.getItem('rememberedEmail');
   if (savedEmail) {
@@ -137,53 +88,54 @@ onMounted(() => {
   }
 });
 
-// Form validation
 const isValidForm = computed(() => {
-  return email.value && 
-         password.value && 
-         !emailError.value && 
+  return email.value &&
+         password.value &&
+         !emailError.value &&
          !passwordError.value;
 });
 
-// Enhanced login handler
 const handleLogin = async () => {
   validateEmail();
   validatePassword();
-  
+
   if (!isValidForm.value) {
-    toast.show = true;
-    toast.message = 'Please correct the errors above.';
-    toast.color = 'danger';
+    const toast = await toastController.create({
+      message: 'Please correct the errors above.',
+      duration: 3000,
+      color: 'danger'
+    });
+    await toast.present();
     return;
   }
-  
+
   loading.value = true;
   try {
-    const { data } = await api.post('/login', {
+    await authStore.login({
       email: email.value.trim().toLowerCase(),
       password: password.value
     });
-  
+
     if (rememberMe.value) {
       localStorage.setItem('rememberedEmail', email.value);
     } else {
       localStorage.removeItem('rememberedEmail');
     }
-  
-    localStorage.setItem('token', data.session.access_token);
-    
-    toast.show = true;
-    toast.message = 'Login successful!';
-    toast.color = 'success';
-    
-    // Pequeno atraso para garantir que o token seja processado
-    setTimeout(() => {
-      router.push('/home');
-    }, 500); // Aumentado de 300ms a 500ms
+
+    const toast = await toastController.create({
+      message: 'Login successful!',
+      duration: 2000,
+      color: 'success'
+    });
+    await toast.present();
+
   } catch (error: any) {
-    toast.show = true;
-    toast.message = 'Login failed';
-    toast.color = 'danger';
+    const toast = await toastController.create({
+      message: 'Login failed',
+      duration: 3000,
+      color: 'danger'
+    });
+    await toast.present();
   } finally {
     loading.value = false;
   }
