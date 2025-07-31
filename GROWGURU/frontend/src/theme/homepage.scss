@@ -1,0 +1,277 @@
+// Variáveis com a paleta de cores especificada
+:root {
+  --fundo-principal: #111827;
+  --texto-principal: #F9FAFB;
+  --elementos-primarios: #3B82F6;
+  --elementos-secundarios: #22C55E;
+  --acentos-destaques: #F59E0B;
+  --divisores-bordas: #374151;
+}
+
+// Estilos globais da página
+.home-page {
+  background-color: var(--fundo-principal);
+  color: var(--texto-principal);
+  font-family: 'Inter', sans-serif;
+}
+
+// Container de conteúdo
+.content-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+// Header
+.header-container {
+  padding: 0.5rem 1.5rem;
+}
+
+.welcome-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--texto-principal);
+}
+
+// Card de saldo com gradiente
+.balance-card {
+  position: relative;
+  background: linear-gradient(135deg, #FF416C, #FF4B2B, #F7971E, #FFD200);
+  background-size: 300% 300%;
+  animation: gradientMove 8s ease infinite;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -5px rgba(255, 65, 108, 0.3), 0 8px 10px -6px rgba(255, 75, 43, 0.2);
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.card-decoration {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: 
+    radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 50%),
+    linear-gradient(to bottom right, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 30%);
+  z-index: 1;
+}
+
+.card-content {
+  position: relative;
+  z-index: 2;
+}
+
+.card-decoration {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+  z-index: 1;
+}
+
+.card-logo {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 3rem;
+  height: auto;
+  opacity: 0.8;
+  z-index: 2;
+}
+
+.user-info {
+  margin-bottom: 2rem;
+}
+
+.user-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--texto-principal);
+  margin: 0;
+}
+
+.account-date {
+  font-size: 0.875rem;
+  color: rgba(249, 250, 251, 0.8);
+  margin: 0.25rem 0 0 0;
+}
+
+.balance-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.balance-label {
+  font-size: 0.875rem;
+  color: rgba(249, 250, 251, 0.8);
+  margin: 0;
+}
+
+.balance-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--texto-principal);
+  margin: 0.25rem 0 0 0;
+}
+
+// Seção de transações
+.transactions-section {
+  background-color: #1F2937;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--divisores-bordas);
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem 0;
+  color: var(--texto-principal);
+}
+
+.transactions-list {
+  max-height: 400px;
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* Esconde a barra de rolagem para Chrome, Safari e Opera */
+.transactions-list::-webkit-scrollbar {
+  display: none;
+}
+
+.empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  color: #9CA3AF;
+}
+
+.transaction-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--divisores-bordas);
+  transition: background-color 0.2s ease;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+}
+
+.transaction-info {
+  flex: 1;
+}
+
+.transaction-type {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--texto-principal);
+  text-transform: capitalize;
+}
+
+.transaction-description {
+  font-size: 0.875rem;
+  color: #9CA3AF;
+  margin: 0.25rem 0;
+}
+
+.transaction-date {
+  font-size: 0.75rem;
+  color: #6B7280;
+  margin: 0;
+}
+
+.transaction-amount {
+  font-size: 1rem;
+  font-weight: 600;
+  
+  &.income {
+    color: var(--elementos-secundarios);
+  }
+  
+  &.expense {
+    color: #EF4444;
+  }
+}
+
+// Animações
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.balance-card, .transactions-section {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.transaction-item {
+  animation: fadeIn 0.3s ease-out forwards;
+  animation-delay: calc(var(--index, 0) * 0.05s);
+}
+
+// Adicionar destaque para elementos interativos
+.interactive-element {
+  color: var(--acentos-destaques);
+  transition: color 0.2s ease;
+  
+  &:hover {
+    color: #FBBF24;
+  }
+}
+
+// Botões com a cor primária
+.primary-button {
+  background-color: var(--elementos-primarios);
+  color: var(--texto-principal);
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: #2563EB;
+  }
+  
+  &:focus {
+    outline: 2px solid var(--acentos-destaques);
+    outline-offset: 2px;
+  }
+}

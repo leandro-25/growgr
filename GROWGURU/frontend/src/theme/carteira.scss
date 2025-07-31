@@ -1,0 +1,267 @@
+// Variáveis de cores baseadas na paleta fornecida
+$fundo-principal: #111827; // Cinza bem escuro (gray-900)
+$texto-principal: #F9FAFB; // Quase branco (gray-100)
+$elementos-primarios: #3B82F6; // Azul médio (blue-500)
+$elementos-secundarios: #22C55E; // Verde vibrante (green-500)
+$acentos-destaques: #F59E0B; // Amarelo/Âmbar marcante (amber-500)
+$divisores-bordas: #374151; // Cinza médio (gray-700)
+
+// Estilos específicos para a página de carteira
+.carteira-page {
+  background-color: $fundo-principal;
+  color: $texto-principal;
+
+  ion-header ion-toolbar {
+    --background: #{$fundo-principal};
+    --color: #{$texto-principal};
+    --border-color: #{$divisores-bordas};
+    
+    ion-title {
+      padding: 0 16px;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+  }
+
+  ion-content {
+    --background: #{$fundo-principal};
+    --padding-start: 20px;
+    --padding-end: 20px;
+    --padding-top: 20px;
+    --padding-bottom: 20px;
+  }
+
+  // Gráfico de distribuição
+  .chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 18rem;
+    margin: 0 0 2rem 0;
+    background-color: rgba(lighten($fundo-principal, 3%), 0.3);
+    border-radius: 12px;
+    border: 1px solid $divisores-bordas;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  // Estado vazio
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 0;
+    margin: 2rem 0;
+    color: rgba($texto-principal, 0.6);
+    
+    ion-icon {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      color: $elementos-primarios;
+    }
+    
+    p {
+      font-size: 1rem;
+    }
+  }
+
+  // Lista de estratégias
+  ion-list {
+    background: transparent;
+    padding: 0;
+    margin: 1.5rem 0;
+  }
+
+  // Card de estratégia
+  .estrategia-card {
+    background-color: rgba(lighten($fundo-principal, 2%), 0.5);
+    border-radius: 12px;
+    border: 1px solid $divisores-bordas;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    ion-item {
+      --background: transparent;
+      --border-color: transparent;
+      --padding-start: 16px;
+      --padding-end: 16px;
+      --inner-padding-end: 16px;
+      --min-height: 70px;
+
+      ion-label {
+        margin: 12px 0;
+        
+        h2 {
+          font-size: 1.125rem;
+          font-weight: 600;
+          color: $texto-principal;
+          margin-bottom: 0.75rem;
+        }
+        
+        p {
+          color: rgba($texto-principal, 0.7);
+          font-size: 0.875rem;
+          margin: 0.5rem 0;
+          line-height: 1.4;
+        }
+      }
+    }
+
+    // Botão de toggle
+    .toggle-button {
+      background-color: $acentos-destaques;
+      color: $fundo-principal;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 16px;
+      transition: background-color 0.2s ease;
+      
+      &:hover {
+        background-color: darken($acentos-destaques, 10%);
+      }
+      
+      ion-icon {
+        font-size: 1.25rem;
+        color: $texto-principal;
+      }
+    }
+  }
+
+  // Container de ativos
+  .ativos-container {
+    margin: 0.5rem 16px 16px 16px;
+  }
+
+  // Card de ativo
+  .ativo-card {
+    background-color: rgba(lighten($fundo-principal, 1%), 0.3);
+    border-radius: 8px;
+    border: 1px solid $divisores-bordas;
+    padding: 16px;
+    margin-top: 12px;
+    --min-height: auto;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --inner-padding-end: 16px;
+    
+    ion-label {
+      margin: 0;
+      padding: 8px 0;
+      
+      h3 {
+        color: $texto-principal;
+        font-size: 1rem;
+        font-weight: 500;
+        margin: 0 0 0.75rem;
+      }
+      
+      p {
+        color: rgba($texto-principal, 0.7);
+        font-size: 0.875rem;
+        margin: 0.5rem 0;
+        line-height: 1.4;
+      }
+    }
+
+    // Container de venda
+    .venda-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 16px;
+      padding: 8px 0;
+      
+      ion-input {
+        flex: 0 0 6rem;
+        --background: rgba(#{lighten($fundo-principal, 5%)}, 0.5);
+        --color: #{$texto-principal};
+        --placeholder-color: rgba(#{$texto-principal}, 0.5);
+        --padding-start: 12px;
+        --padding-end: 12px;
+        --padding-top: 8px;
+        --padding-bottom: 8px;
+        --border-radius: 6px;
+        --border-color: #{$divisores-bordas};
+        --border-width: 1px;
+        --border-style: solid;
+        height: 2.5rem;
+        margin: 0;
+      }
+      
+      .venda-button {
+        background-color: $acentos-destaques;
+        color: $fundo-principal;
+        font-weight: 500;
+        padding: 0 16px;
+        height: 2.5rem;
+        border-radius: 6px;
+        margin: 0;
+        transition: background-color 0.2s ease;
+        
+        &:hover:not([disabled]) {
+          background-color: darken($acentos-destaques, 10%);
+        }
+        
+        &[disabled] {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+
+  // Sobrescrever estilos padrão do Ionic
+  ion-button {
+    --background: transparent;
+    --box-shadow: none;
+    --border-radius: 0;
+    --border-width: 0;
+    --padding-start: 0;
+    --padding-end: 0;
+  }
+  
+  ion-button::part(native) {
+    padding: 0;
+    margin: 0;
+    background: transparent;
+  }
+  
+  // Ajustes para telas menores
+  @media (max-width: 576px) {
+    ion-content {
+      --padding-start: 12px;
+      --padding-end: 12px;
+      --padding-top: 12px;
+      --padding-bottom: 12px;
+    }
+    
+    .estrategia-card ion-item {
+      --padding-start: 12px;
+      --padding-end: 12px;
+    }
+    
+    .ativos-container {
+      margin: 0.5rem 12px 12px 12px;
+    }
+    
+    .venda-container {
+      flex-direction: column;
+      align-items: stretch;
+      
+      ion-input {
+        flex: 1;
+        width: 100%;
+      }
+    }
+  }
+}
