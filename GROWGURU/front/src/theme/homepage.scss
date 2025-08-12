@@ -1,0 +1,555 @@
+// Variáveis com a paleta de cores especificada usando SASS como na carteira.scss
+$fundo-principal: #111827; // Cinza bem escuro (gray-900)
+$texto-principal: #F9FAFB; // Quase branco (gray-100)
+$elementos-primarios: #3B82F6; // Azul médio (blue-500)
+$elementos-secundarios: #22C55E; // Verde vibrante (green-500)
+$acentos-destaques: #F59E0B; // Amarelo/Âmbar marcante (amber-500)
+$divisores-bordas: #374151; // Cinza médio (gray-700)
+
+// Estilos globais da página
+.home-page {
+  background-color: $fundo-principal;
+  color: $texto-principal;
+
+  // Adicionando a imagem de fundo
+  ion-content::part(background) {
+    background-image: url('../assets/imagem/BC1.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.3; // Opacidade reduzida para não interferir na legibilidade
+  }
+  
+  ion-header {
+    &::after {
+      display: none; // Remove a linha de borda inferior padrão
+    }
+    
+    ion-toolbar {
+      --background: rgba(17, 24, 39, 0.7); // Fundo semi-transparente
+      --color: #{$texto-principal};
+      --border-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      
+      ion-title {
+        padding: 0 16px;
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+    }
+  }
+
+  ion-content {
+    --background: transparent;
+    --padding-start: 20px;
+    --padding-end: 20px;
+    --padding-top: 20px;
+    --padding-bottom: 20px;
+  }
+}
+
+// Container de conteúdo
+.content-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+// Header
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10px;
+  margin-top: 1px;
+  background-color: transparent !important;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: transparent !important;
+}
+
+.logo-image {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.brand-text {
+  font-size: 24px; // Corrigido o valor que estava como "px"
+  color: #FFFFFF;
+  background-color: transparent !important;
+}
+
+.brand-bold {
+  font-weight: 700;
+  background-color: transparent !important;
+}
+
+.welcome-title {
+  text-align: right;
+  font-size: 16px;
+  background-color: transparent !important;
+}
+
+.welcome-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #{$texto-principal};
+}
+
+// Card de saldo com gradiente
+.balance-card {
+  position: relative;
+  // Ajuste no gradiente para semi-transparência para o efeito Glassmorphism
+  background: linear-gradient(135deg, rgba(255, 65, 108, 0.8), rgba(255, 75, 43, 0.8), rgba(247, 151, 30, 0.8), rgba(255, 210, 0, 0.8));
+  background-size: 400% 400%; // Aumentado para animação mais suave
+  animation: gradientMove 15s ease infinite; // Velocidade da animação ajustada
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -5px rgba(255, 65, 108, 0.2), 0 8px 10px -6px rgba(255, 75, 43, 0.1); // Sombra sutil
+  height: 180px; // ou 200px se preferir mais espaço
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgba(255, 255, 255, 0.18); // Borda para o efeito glass
+  
+  // Efeito Glassmorphism
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); // Para compatibilidade com Safari
+  
+  transition: transform 0.2s ease-out; // Para microinteração
+  
+  &:hover {
+    transform: scale(1.02); // Leve expansão no hover (desktop)
+  }
+
+  &:active {
+    transform: scale(0.98); // Leve "pulso" ao clicar/tocar
+  }
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.card-decoration {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: 
+    radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 50%),
+    linear-gradient(to bottom right, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 30%);
+  z-index: 1;
+}
+
+.card-content {
+  position: relative;
+  z-index: 2;
+}
+
+.card-decoration {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+  z-index: 1;
+}
+
+.card-logo {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 3rem;
+  height: auto;
+  opacity: 0.8;
+  z-index: 2;
+}
+
+.user-info {
+  margin-bottom: 2rem;
+}
+
+.user-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #{$texto-principal};
+  margin: 0;
+}
+
+.account-date {
+  font-size: 0.875rem;
+  color: rgba(249, 250, 251, 0.8);
+  margin: 0.25rem 0 0 0;
+}
+
+.balance-info {
+  width: 100%;
+  
+  .balance-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    
+    .balance-item {
+      flex: 1;
+      
+      .balance-label {
+        font-size: 0.875rem;
+        color: rgba(249, 250, 251, 0.8);
+        margin: 0 0 0.25rem 0;
+      }
+      
+      .balance-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #{$texto-principal};
+        margin: 0;
+      }
+    }
+  }
+}
+
+// Estilos antigos removidos - substituídos pelo novo layout
+
+// Seção de transações
+.transactions-section {
+  background-color: rgba(31, 41, 55, 0.300); // Fundo semi-transparente
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.0); // Borda mais sutil
+  backdrop-filter: blur(5px); // Efeito de desfoque
+  -webkit-backdrop-filter: blur(5px); // Para compatibilidade com Safari
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem 0;
+  color: #{$texto-principal};
+}
+
+.transactions-list {
+  max-height: 400px;
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* Esconde a barra de rolagem para Chrome, Safari e Opera */
+.transactions-list::-webkit-scrollbar {
+  display: none;
+}
+
+.empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  color: rgba(156, 163, 175, 0.8);
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 0.5rem;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.transaction-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); // Borda mais sutil
+  transition: background-color 0.2s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.05); // Fundo levemente claro
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  backdrop-filter: blur(5px); // Efeito de desfoque menor para cada item
+  -webkit-backdrop-filter: blur(5px); // Para compatibilidade com Safari
+
+  // Sombra dinâmica inicial (sutil)
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  &:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  &:active {
+    background-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  }
+}
+
+// Ripple Effect para .transaction-item
+.transaction-item::after {
+  content: "";
+  background: rgba(255, 255, 255, 0.2);
+  display: block;
+  position: absolute;
+  border-radius: 50%;
+  padding-top: 350%;
+  padding-left: 350%;
+  margin-left: -20px !important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s;
+  transform: scale(0);
+  pointer-events: none;
+}
+
+.transaction-item:active::after {
+  padding-top: 0;
+  padding-left: 0;
+  margin-left: 0;
+  margin-top: 0;
+  opacity: 1;
+  transition: 0s;
+  transform: scale(1);
+}
+
+.transaction-info {
+  flex: 1;
+}
+
+.transaction-type {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  color: #{$texto-principal};
+  text-transform: capitalize;
+}
+
+.transaction-description {
+  font-size: 0.875rem;
+  color: #9CA3AF;
+  margin: 0.25rem 0;
+}
+
+.transaction-date {
+  font-size: 0.75rem;
+  color: #6B7280;
+  margin: 0;
+}
+
+.transaction-amount {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #EF4444; // Vermelho para saídas (padrão)
+}
+
+.income {
+  color: #10B981 !important; // Verde para entradas (vendas)
+}
+
+.expense {
+  color: #EF4444 !important; // Vermelho para saídas (compras)
+}
+
+// Animações
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.balance-card, .transactions-section {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.transaction-item {
+  animation: fadeIn 0.3s ease-out forwards;
+  animation-delay: calc(var(--index, 0) * 0.05s);
+}
+
+// Adicionar destaque para elementos interativos
+.interactive-element {
+  color: var(--acentos-destaques);
+  transition: color 0.2s ease;
+  
+  &:hover {
+    color: #FBBF24;
+  }
+}
+
+// Botões com a cor primária
+.primary-button {
+  background-color: #{$elementos-primarios};
+  color: #{$texto-principal};
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: #2563EB;
+  }
+  
+  &:focus {
+    outline: 2px solid #{$acentos-destaques};
+    outline-offset: 2px;
+  }
+}
+
+// Adicionar estilos para Skeleton Screens e Shimmer Effect
+.skeleton-transaction-item {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border-bottom: 1px solid var(--divisores-bordas);
+  background-color: rgba(55, 65, 81, 0.5);
+  border-radius: 0.5rem;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.skeleton-line {
+  background-color: rgba(75, 85, 99, 0.8);
+  border-radius: 0.25rem;
+  margin-bottom: 0.5rem;
+  height: 1em;
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-line.title {
+  width: 60%;
+  height: 1.2em;
+}
+
+.skeleton-line.text {
+  width: 80%;
+}
+
+.skeleton-line.small-text {
+  width: 40%;
+  height: 0.8em;
+  margin-bottom: 0;
+}
+
+// Shimmer Effect
+.skeleton-line::before,
+.skeleton-transaction-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  height: 100%;
+  width: 150%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(107, 114, 128, 0.3) 50%,
+    transparent 100%
+  );
+  animation: shimmer-animation 1.5s infinite linear;
+}
+
+@keyframes shimmer-animation {
+  0% {
+    left: -150%;
+  }
+  100% {
+    left: 150%;
+  }
+}
+
+// Card de saldo com gradiente dinâmico alternando posições
+.balance-card {
+  position: relative;
+  // Gradiente com cores que vão alternar posições
+  background: linear-gradient(90deg, 
+    rgba(255, 65, 108, 0.8), 
+    rgba(255, 75, 43, 0.8), 
+    rgba(247, 151, 30, 0.8), 
+    rgba(255, 210, 0, 0.8));
+  background-size: 400% 100%;
+  animation: gradientAlternate 15s linear infinite;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -5px rgba(255, 65, 108, 0.2), 0 8px 10px -6px rgba(255, 75, 43, 0.1);
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  
+  transition: transform 0.2s ease-out;
+  
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+// Animação para alternar as posições das cores no gradiente
+@keyframes gradientAlternate {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+// Container da marca entre o header e o card
+.brand-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0; /* Removido o padding vertical */
+  margin-top: -20px; /* Valor negativo para subir o elemento */
+  margin-bottom: 20px; /* Reduzido o espaço até o card */
+  background-color: transparent !important;
+}
+
+// Os estilos para .logo-container, .logo-image, .brand-text e .brand-bold
+// já estão definidos no seu arquivo e serão reutilizados
